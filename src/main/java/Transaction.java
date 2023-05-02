@@ -56,4 +56,8 @@ public class Transaction {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
+    public void add(Transaction transaction) {
+        System.out.println(transaction);
+    }
 }
