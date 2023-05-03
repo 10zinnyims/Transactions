@@ -225,25 +225,50 @@ public class FinancialTracker {
                     // Generate a report for all transactions within the current month,
                     // including the date, vendor, and amount for each transaction.
                     // The report should include a total of all transaction amounts for the month.
+                    LocalDate now = LocalDate.now();
+                    LocalDate startDate = now.withDayOfMonth(1);
+                    LocalDate endDate = now.withDayOfMonth(now.lengthOfMonth());
+                    filterTransactionsByDate(startDate, endDate);
+                    break;
                 case "2":
                     // Generate a report for all transactions within the previous month,
                     // including the date, vendor, and amount for each transaction.
                     // The report should include a total of all transaction amounts for the month.
+                    now = LocalDate.now();
+                    LocalDate previousMonthStart = now.minusMonths(1).withDayOfMonth(1);
+                    LocalDate previousMonthEnd = previousMonthStart.withDayOfMonth(previousMonthStart.lengthOfMonth());
+                    filterTransactionsByDate(previousMonthStart, previousMonthEnd);
+                    break;
                 case "3":
                     // Generate a report for all transactions within the current year,
                     // including the date, vendor, and amount for each transaction.
                     // The report should include a total of all transaction amounts for the year.
+                    now = LocalDate.now();
+                    LocalDate yearStartDate = now.withDayOfYear(1);
+                    endDate = now.withDayOfYear(now.lengthOfYear());
+                    filterTransactionsByDate(yearStartDate, endDate);
+                    break;
 
                 case "4":
                     // Generate a report for all transactions within the previous year,
                     // including the date, vendor, and amount for each transaction.
                     // The report should include a total of all transaction amounts for the year.
+                    now = LocalDate.now();
+                    LocalDate previousYearStartDate = now.minusYears(1).withDayOfYear(1);
+                    LocalDate previousYearEndDate = previousYearStartDate.withDayOfYear(previousYearStartDate.lengthOfYear());
+                    filterTransactionsByDate(previousYearStartDate, previousYearEndDate);
+                    break;
                 case "5":
                     // Prompt the user to enter a vendor name, then generate a report for all transactions
                     // with that vendor, including the date, vendor, and amount for each transaction.
                     // The report should include a total of all transaction amounts for the vendor.
+                    System.out.println("Enter vendor name:");
+                    String vendor = scanner.nextLine().trim();
+                    filterTransactionsByVendor(vendor);
+                    break;
                 case "0":
                     running = false;
+                    break;
                 default:
                     System.out.println("Invalid option");
                     break;
