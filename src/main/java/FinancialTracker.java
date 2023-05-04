@@ -4,9 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
 
 public class FinancialTracker {
 
@@ -283,6 +281,14 @@ public class FinancialTracker {
         // The method loops through the transactions list and checks each transaction's date against the date range.
         // Transactions that fall within the date range are printed to the console.
         // If no transactions fall within the date range, the method prints a message indicating that there are no results.
+        // Print the header
+        System.out.printf("Transactions for %s to %s:%n", startDate, endDate);
+        System.out.printf("%-15s %-30s %-20s%n", "Date", "Vendor", "Amount");
+
+        // Print the details for each transaction
+        for (Transaction transaction : transactions) {
+            System.out.printf("%-15s %-30s $%-20.2f%n", transaction.getDate(), transaction.getVendor(), transaction.getAmount());
+        }
     }
 
     private static void filterTransactionsByVendor(String vendor) {
@@ -291,5 +297,17 @@ public class FinancialTracker {
         // The method loops through the transactions list and checks each transaction's vendor name against the specified vendor name.
         // Transactions with a matching vendor name are printed to the console.
         // If no transactions match the specified vendor name, the method prints a message indicating that there are no results.
+
+        System.out.printf("Transactions for %s:%n", vendor);
+        System.out.printf("%-15s %-30s %-20s %-30s%n", "Date", "Vendor", "Amount", "Description");
+
+        // Print the details for each transaction with the vendor
+        for (Transaction transaction : transactions) {
+            if (transaction.getVendor().equalsIgnoreCase(vendor)) {
+                System.out.printf("%-15s %-30s $%-20.2f %-30s%n", transaction.getDate(), transaction.getVendor(), transaction.getAmount(), transaction.getDescription());
+            }
+        }
+        // Print a newline after all transactions are displayed
+        System.out.println();
     }
 }
